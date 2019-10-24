@@ -1,1 +1,5 @@
 sonar:latest
+git-changelog:1.45
+git:latest
+git-client:latest
+git-server:latest
