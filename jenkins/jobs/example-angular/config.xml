@@ -1,0 +1,63 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+    <actions/>
+    <description>Example angular project</description>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.StringParameterDefinition>
+                    <name>APP_NAME</name>
+                    <description></description>
+                    <defaultValue>example-angular</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>BRANCH</name>
+                    <description></description>
+                    <defaultValue>master</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+    </properties>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.12.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.com/imolinuevo/poke-dux.git</url>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/${BRANCH}</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <hudson.tasks.Shell>
+            <command>npm install</command>
+        </hudson.tasks.Shell>
+        <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.10">
+            <project></project>
+            <properties>sonar.projectKey=${APP_NAME}
+sonar.project.name=${APP_NAME}
+sonar.sources=.</properties>
+            <javaOpts></javaOpts>
+            <additionalArguments></additionalArguments>
+            <jdk>(Inherit From Job)</jdk>
+            <task></task>
+        </hudson.plugins.sonar.SonarRunnerBuilder>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+</project>
