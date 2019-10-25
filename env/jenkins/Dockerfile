@@ -4,6 +4,8 @@ ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
 WORKDIR /var/jenkins_home
 COPY --chown=jenkins:jenkins ./jobs ./jobs
+COPY --chown=jenkins:jenkins hudson.plugins.sonar.SonarGlobalConfiguration.xml .
+COPY --chown=jenkins:jenkins hudson.plugins.sonar.SonarRunnerInstallation.xml .
 
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
