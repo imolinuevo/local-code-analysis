@@ -1,5 +1,8 @@
 version: '3'
 
+networks:
+  main:
+
 volumes:
   jenkins_home:
   sonar_home_conf:
@@ -9,6 +12,10 @@ volumes:
 
 services:
   jenkins:
+    container_name: custom-jenkins
+    hostname: custom-jenkins
+    networks:
+      - main
     build: ./jenkins
     ports:
       - "8080:8080"
@@ -17,6 +24,10 @@ services:
       - jenkins_home:/var/jenkins_home
 
   sonarqube:
+    container_name: custom-sonar
+    hostname: custom-sonar
+    networks:
+      - main
     build: ./sonarqube
     ports:
       - "9000:9000"
