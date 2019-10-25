@@ -1,0 +1,38 @@
+version: '3'
+
+networks:
+  main:
+
+volumes:
+  jenkins_home:
+  sonar_home_conf:
+  sonar_home_extensions:
+  sonar_home_logs:
+  sonar_home_data:
+
+services:
+  jenkins:
+    container_name: custom-jenkins
+    hostname: custom-jenkins
+    networks:
+      - main
+    build: ./jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+  sonarqube:
+    container_name: custom-sonar
+    hostname: custom-sonar
+    networks:
+      - main
+    build: ./sonarqube
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonar_home_conf:/opt/sonarqube/conf
+      - sonar_home_extensions:/opt/sonarqube/extensions
+      - sonar_home_logs:/opt/sonarqube/logs
+      - sonar_home_data:/opt/sonarqube/data
